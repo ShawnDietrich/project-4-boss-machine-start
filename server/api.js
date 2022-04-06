@@ -6,13 +6,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
-module.exports = apiRouter;
+
 
 //setup cors
 app.use(cors());
 
 //Mount the main route
 app.use('/api', apiRouter);
+module.exports = apiRouter;
 
 //start server
 app.listen(PORT, () => {

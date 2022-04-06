@@ -1,6 +1,6 @@
-const express = require('express');
-const app = express();
-const apiRouter = require('../api');
+//Import required code
+const express = require("express");
+const bodyParser = require("body-parser");
 
-
-module.exports = ideasRouter;
+const ideasRouter = express.Router();
+module.exports = { ideasRouter };
