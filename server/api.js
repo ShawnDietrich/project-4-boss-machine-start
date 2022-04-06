@@ -20,7 +20,11 @@ app.use('/api/ideas', ideasRouter)
 app.use('/api/meetings', meetingsRouter)
 app.use('/api/minions', minionsRouter)
 
-module.exports = apiRouter;
+module.exports = apiRouter; 
+
+apiRouter.get('/api', (req,res,next) => {
+
+})
 
 //start server
 app.listen(PORT, () => {
