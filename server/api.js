@@ -16,15 +16,14 @@ app.use(cors());
 
 //Mount the main route
 app.use('/api', apiRouter);
-app.use('/api/ideas', ideasRouter)
-app.use('/api/meetings', meetingsRouter)
-app.use('/api/minions', minionsRouter)
+
 
 module.exports = apiRouter; 
 
-apiRouter.get('/api', (req,res,next) => {
 
-})
+app.use('/api/ideas', ideasRouter)
+app.use('/api/meetings', meetingsRouter)
+app.use('/api/minions', minionsRouter)
 
 //start server
 app.listen(PORT, () => {
