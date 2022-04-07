@@ -13,6 +13,22 @@ module.exports = minionsRouter;
 
 minionsRouter.use(bodyParser.json());
 
+//ID check
+minionsRouter.use("/:minionId", (req, res, next) => {
+  if (req.params.minionId === NaN){
+    return res.status(404).send();
+  }
+  
+  
+  if (typeof id === "number") {
+    const id =  Number(req.params.minionId);
+    next();
+  } else {
+    
+    return res.status(404).send();
+  }
+});
+
 minionsRouter.get("/", (req, res, next) => {
   const minions = getAllFromDatabase("minions");
   if (minions.length === 0) {
@@ -27,7 +43,7 @@ minionsRouter.get("/:minionId", (req, res, next) => {
   const minion = getFromDatabaseById("minions", minionId);
 
   if (minion === null) {
-    return res.status(404).send(`id: ${minionId} not found`);
+    return res.status(404).send(`not found`);
   }
   res.send(minion);
 });
