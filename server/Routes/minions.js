@@ -15,7 +15,12 @@ minionsRouter.use(bodyParser.json());
 
 minionsRouter.get("/", (req, res, next) => {
   const minions = getAllFromDatabase("minions");
-  res.send(minions);
+  if(minions.length === 0 ) {
+    res.status(404).send()
+  } else {
+    res.status(200).send(minions);
+  }
+  
 });
 
 minionsRouter.get("/:minionId", (req, res, next) => {

@@ -15,7 +15,7 @@ const { minionsRouter } = require('./Routes/minions');
 app.use(cors());
 
 //Mount the main route
-app.use('/api', apiRouter);
+//app.use('/api', apiRouter);
 
 
 module.exports = apiRouter; 
