@@ -10,7 +10,7 @@ const {
   deleteFromDatabasebyId,
 } = require("../db");
 const ideasRouter = express.Router();
-module.exports = { ideasRouter };
+module.exports = ideasRouter;
 
 ideasRouter.use(bodyParser.json());
 
@@ -37,7 +37,6 @@ ideasRouter.put("/:ideaId", (req, res, next) => {
   Number(updateIdea.weeklyRevenue);
   if (getFromDatabaseById("ideas", updateIdea.id) !== -1) {
     updateInstanceInDatabase("ideas", updateIdea);
-    console.log(updateIdea);
     res.status(200).send();
   } else {
     res.status(404).send();

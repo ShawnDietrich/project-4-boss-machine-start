@@ -1,32 +1,15 @@
-const express = require('express');
-const apiRouter = express.Router();
-const app = express();
-const PORT = 4001;
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const { ideasRouter } = require('./Routes/ideas');
-const { meetingsRouter } = require('./Routes/meetings');
-const { minionsRouter } = require('./Routes/minions');
+const express = require("express");
+const ideasRouter  = require("./Routes/ideas");
+const meetingsRouter  = require("./Routes/meetings");
+const minionsRouter = require("./Routes/minions");
 
 
-
-
-//setup cors
-app.use(cors());
 
 //Mount the main route
-//app.use('/api', apiRouter);
+const apiRouter = express.Router();
+module.exports = apiRouter;
 
-
-module.exports = apiRouter; 
-
-
-app.use('/api/ideas', ideasRouter)
-app.use('/api/meetings', meetingsRouter)
-app.use('/api/minions', minionsRouter)
-
-//start server
-app.listen(PORT, () => {
-    console.log(`Server Listening On Port ${PORT}`);
-});
+apiRouter.use("/ideas", ideasRouter);
+apiRouter.use("/meetings", meetingsRouter);
+apiRouter.use("/minions", minionsRouter);
 
