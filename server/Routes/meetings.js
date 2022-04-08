@@ -21,10 +21,11 @@ meetingsRouter.get("/", (req, res, next) => {
 
 meetingsRouter.post("/", (req, res, next) => {
   const addedMeeting = createMeeting();
+  addToDatabase('meetings', addedMeeting)
   res.status(201).send(addedMeeting);
 });
 
 meetingsRouter.delete("/", (req, res, next) => {
-  deleteAllFromDatabase("meetins");
-  res.status(201).send();
+  deleteAllFromDatabase("meetings");
+  res.status(204).send();
 });

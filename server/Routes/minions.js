@@ -15,17 +15,13 @@ minionsRouter.use(bodyParser.json());
 
 //ID check
 minionsRouter.use("/:minionId", (req, res, next) => {
-  if (req.params.minionId === NaN){
+  const id = Number(req.params.minionId);
+  const minion = getFromDatabaseById("minions", req.params.minionId);
+
+  if (isNaN(id) || minion === undefined) {
     return res.status(404).send();
-  }
-  
-  
-  if (typeof id === "number") {
-    const id =  Number(req.params.minionId);
-    next();
   } else {
-    
-    return res.status(404).send();
+    next();
   }
 });
 
@@ -41,41 +37,30 @@ minionsRouter.get("/", (req, res, next) => {
 minionsRouter.get("/:minionId", (req, res, next) => {
   const minionId = String(req.params.minionId);
   const minion = getFromDatabaseById("minions", minionId);
-
-  if (minion === null) {
-    return res.status(404).send(`not found`);
-  }
   res.send(minion);
 });
 
 minionsRouter.post("/", (req, res, next) => {
-  const newMinion = {
-    name: req.body.name,
-    title: req.body.title,
-    weaknesses: req.body.weaknesses,
-    salary: Number(req.body.salary),
-  };
-
+  const newMinion = req.body;
+  Number(newMinion.salary);
   if (
-    newMinion.name &&
-    newMinion.title &&
-    newMinion.weaknesses &&
-    newMinion.salary > 0
+    newMinion.name !== null &&
+    newMinion.title !== null &&
+    newMinion.weaknesses !== null &&
+    !isNaN(newMinion.salary)
   ) {
     const addedMinion = addToDatabase("minions", newMinion);
-    res.send(addedMinion);
+    res.status(201).send(addedMinion);
+  }else {
+    res.status(404).send();
   }
 });
 
 minionsRouter.put("/:minionId", (req, res, next) => {
   const updateMinion = req.body;
   Number(updateMinion.salary);
-  if (getFromDatabaseById("minions", updateMinion.id) !== -1) {
-    updateInstanceInDatabase("minions", updateMinion);
-    res.status(200).send();
-  } else {
-    res.status(404).send();
-  }
+  const newMinion = updateInstanceInDatabase("minions", updateMinion);
+  res.status(200).send(newMinion);
 });
 
 minionsRouter.delete("/:minionId", (req, res, next) => {
@@ -83,7 +68,7 @@ minionsRouter.delete("/:minionId", (req, res, next) => {
     res.status(404).send();
   } else {
     deleteFromDatabasebyId("minions", req.params.minionId);
-    res.status(200).send();
+    res.status(204).send();
   }
 });
 
