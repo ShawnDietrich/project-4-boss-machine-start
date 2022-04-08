@@ -16,7 +16,7 @@ module.exports = ideasRouter;
 ideasRouter.use(bodyParser.json());
 
 //Id check middleware
-ideasRouter.use("/:ideaId", (req, res, next) => {
+ideasRouter.param("ideaId", (req, res, next) => {
   const id = Number(req.params.ideaId);
   const idea = getFromDatabaseById("ideas", req.params.ideaId);
 

@@ -14,7 +14,7 @@ module.exports = minionsRouter;
 minionsRouter.use(bodyParser.json());
 
 //ID check
-minionsRouter.use("/:minionId", (req, res, next) => {
+minionsRouter.param("minionId", (req, res, next) => {
   const id = Number(req.params.minionId);
   const minion = getFromDatabaseById("minions", req.params.minionId);
 
